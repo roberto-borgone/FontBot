@@ -1,0 +1,3 @@
+[submodule "apps/backend/boolder-data"]
+	path = apps/backend/boolder-data
+	url = https://github.com/boolder-org/boolder-data.git
