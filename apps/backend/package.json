@@ -1,0 +1,34 @@
+{
+  "name": "server",
+  "version": "1.0.50",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "lint": "eslint . --fix",
+    "generate": "kysely-codegen"
+  },
+  "dependencies": {
+    "@elysia/openapi": "^1.4.15",
+    "@elysia/static": "^1.4.10",
+    "better-auth": "^1.6.10",
+    "better-sqlite3": "^12.9.0",
+    "elysia": "latest",
+    "install": "^0.13.0",
+    "kysely": "^0.29.0",
+    "logixlysia": "^6.3.2",
+    "postgres": "^3.4.9",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/bun": "^1.3.13",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.39.1",
+    "kysely-codegen": "^0.20.0",
+    "typescript": "5.9.2"
+  },
+  "module": "src/index.js"
+}
