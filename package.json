@@ -1,5 +1,5 @@
 {
-  "name": "FontBot",
+  "name": "fontbot",
   "private": true,
   "scripts": {
     "build": "turbo run build",

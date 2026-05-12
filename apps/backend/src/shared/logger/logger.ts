@@ -9,7 +9,7 @@ export const logixlysiaIns = logixlysia({
                 target: 'pino-pretty'
             },
             base: {
-                service: 'FontBot'
+                service: 'fontbot-backend'
             }
         }
     }
