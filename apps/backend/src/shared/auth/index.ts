@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import { authService } from "./service.ts";
 
 export const authController = new Elysia({ name: 'Auth.Controller' })
-    .mount("/auth", authService.handler)
+    .mount(authService.handler)
     .macro({
         auth: {
             async resolve({ status, request: { headers } }) {
