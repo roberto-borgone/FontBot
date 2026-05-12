@@ -36,7 +36,7 @@ const searchTool = tool({
     inputSchema: sqlQuerySchema,
     execute: async ({ query }) => {
         logger.debug({ query }, "Tool [search] call");
-        return await sql.raw<any>(query).execute(db);
+        return await sql.raw<unknown>(query).execute(db);
     },
 })
 

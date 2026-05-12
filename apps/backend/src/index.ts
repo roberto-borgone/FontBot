@@ -5,7 +5,7 @@ import { chatController } from "./chat/index.ts";
 import { authController } from "./shared/auth/index.ts";
 import { openapiController } from "./shared/openapi/index.ts";
 
-const app = new Elysia()
+new Elysia()
   .use(logixlysiaIns)
   .use(staticPlugin())
   .use(authController)

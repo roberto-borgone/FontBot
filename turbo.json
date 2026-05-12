@@ -4,6 +4,12 @@
   "globalDependencies": [
     ".env"
   ],
+  "globalEnv": [
+    "DATABASE_URL",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "LOG_LEVEL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
