@@ -1,11 +1,9 @@
-import { Kysely, SqliteDialect } from 'kysely';
+import { Kysely } from 'kysely';
+import { BunWorkerDialect } from 'kysely-bun-worker';
 import type { DB } from 'kysely-codegen';
-import Database from 'better-sqlite3';
 
 export const db = new Kysely<DB>({
-    dialect: new SqliteDialect({
-        database: new Database(process.env.DATABASE_URL, {
-            fileMustExist: true
-        }),
+    dialect: new BunWorkerDialect({
+        url: process.env.DATABASE_URL
     }),
 });
