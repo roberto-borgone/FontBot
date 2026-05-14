@@ -1,17 +1,15 @@
 //  @ts-check
 
-import { tanstackConfig } from '@tanstack/eslint-config'
+import { config as baseConfig } from "@repo/eslint-config/frontend";
 
+/** @type {import("eslint").Linter.Config[]} */
 export default [
-  ...tanstackConfig,
+  ...baseConfig,
   {
     rules: {
-      'import/no-cycle': 'off',
-      'import/order': 'off',
       'sort-imports': 'off',
       '@typescript-eslint/array-type': 'off',
       '@typescript-eslint/require-await': 'off',
-      'pnpm/json-enforce-catalog': 'off',
     },
   },
   {

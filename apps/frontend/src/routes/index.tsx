@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useChat } from '@ai-sdk/react'
+import { useChat, type UIMessage } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import { LogOut } from 'lucide-react'
 import { authClient } from '#/lib/auth-client.ts'
@@ -34,6 +34,11 @@ import {
   PromptInputTextarea,
   type PromptInputMessage,
 } from '#/components/ai-elements/prompt-input.tsx'
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger
+} from '#/components/ai-elements/reasoning.tsx'
 
 export const Route = createFileRoute('/')({ component: Home })
 
@@ -122,6 +127,49 @@ function ChatScreen({ user }: { user: SessionUser }) {
     void sendMessage({ text: prompt })
   }
 
+  const isStreaming = status === 'streaming'
+
+  const MessageParts = ({
+    message,
+    isLastMessage,
+    isStreaming,
+  }: {
+    message: UIMessage;
+    isLastMessage: boolean;
+    isStreaming: boolean;
+  }) => {
+    // Consolidate all reasoning parts into one block
+    const reasoningParts = message.parts.filter(
+      (part) => part.type === "reasoning"
+    );
+    const reasoningText = reasoningParts.map((part) => part.text).join("\n\n");
+    const hasReasoning = reasoningParts.length > 0;
+    // Check if reasoning is still streaming (last part is reasoning on last message)
+    const lastPart = message.parts.at(-1);
+    const isReasoningStreaming =
+      isLastMessage && isStreaming && lastPart?.type === "reasoning";
+    return (
+      <>
+        {hasReasoning && (
+          <Reasoning className="w-full" isStreaming={isReasoningStreaming}>
+            <ReasoningTrigger />
+            <ReasoningContent>{reasoningText}</ReasoningContent>
+          </Reasoning>
+        )}
+        {message.parts.map((part, i) => {
+          if (part.type === "text") {
+            return (
+              <MessageResponse key={`${message.id}-${i}`}>
+                {part.text}
+              </MessageResponse>
+            );
+          }
+          return null;
+        })}
+      </>
+    );
+  };
+
   return (
     <div className="mx-auto flex h-dvh max-w-3xl flex-col px-4 py-3">
       <Header user={user} />
@@ -154,16 +202,14 @@ function ChatScreen({ user }: { user: SessionUser }) {
               </div>
             </ConversationEmptyState>
           ) : (
-            messages.map((message) => (
+            messages.map((message, index) => (
               <Message from={message.role} key={message.id}>
                 <MessageContent>
-                  {message.parts.map((part, idx) =>
-                    part.type === 'text' ? (
-                      <MessageResponse key={`${message.id}-${idx}`}>
-                        {part.text}
-                      </MessageResponse>
-                    ) : null,
-                  )}
+                  <MessageParts
+                    message={message}
+                    isLastMessage={index === messages.length - 1}
+                    isStreaming={isStreaming}
+                  />
                 </MessageContent>
               </Message>
             ))

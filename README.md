@@ -86,7 +86,7 @@ Under the hood it's a [Turborepo](https://turbo.build/repo) monorepo: a React + 
 ## Roadmap
 
 - [x] Natural language search
-- [ ] Web frontend (React + Vite + shadcn)
+- [x] Web frontend (React + Vite + shadcn)
 - [ ] Problems geo-location (on map, directions)
 - [ ] Photo replies for selected problems
 - [x] Weather + rock-drying awareness
